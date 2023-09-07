@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Banco de Dados</title>
+</head>
+<body>
+    <h1>Dados da Tabela SQL</h1>
+    <button id="buscar_dados">Buscar Dados</button>
+    <div id="dados"></div>
+
+    <h2>Adicionar Dados</h2>
+    <form id="formulario">
+        <input type="text" id="campo1" placeholder="Campo 1">
+        <input type="number" id="campo2" placeholder="Campo 2">
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <script>
+        document.getElementById('buscar_dados').addEventListener('click', function() {
+            fetch('/buscar_dados')
+                .then(response => response.json())
+                .then(data => {
+                    let html = '<ul>';
+                    data.forEach(item => {
+                        html += `<li>${item.campo1}: ${item.campo2}</li>`;
+                    });
+                    html += '</ul>';
+                    document.getElementById('dados').innerHTML = html;
+                });
+        });
+
+        document.getElementById('formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const campo1 = document.getElementById('campo1').value;
+            const campo2 = document.getElementById('campo2').value;
+
+            fetch('/adicionar_dados', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ campo1, campo2 })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            });
+
+            // Limpar campos do formulário após a submissão
+            document.getElementById('campo1').value = '';
+            document.getElementById('campo2').value = '';
+        });
+    </script>
+</body>
+</html>
