@@ -1,0 +1,27 @@
+h1{
+    font-size: 45px;
+    text-align: center;
+}
+
+div{
+    text-align: center;
+    margin-top: 50px;
+}
+
+label{
+    margin-top: 35px;
+}
+
+.class{
+    margin-top: 25px;
+}
+
+input{
+    margin-bottom: 35px;
+}
+
+
+
+#cadastrar{
+    margin-top: 50px;
+}
