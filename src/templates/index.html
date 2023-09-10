@@ -4,6 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exemplo de Banco de Dados</title>
+    <style>
+        h1{
+    font-size: 75px;
+    text-align: center;
+
+}
+
+body{
+    background-color:cadetblue;
+}
+h2{
+    font-size: 50px;
+    text-align: center;
+}
+
+form{
+    text-align: center;
+}
+
+
+#nome{
+    margin-bottom: 30px;
+}
+
+button{
+    text-align: center;
+    display: block;
+    margin-left: 47%;   
+     
+}
+
+
+    </style>
 </head>
 <body>
     <h1>Dados da Tabela SQL</h1>
@@ -24,7 +57,7 @@
                 .then(data => {
                     let html = '<ul>';
                     data.forEach(item => {
-                        html += `<li>PRODUTO:${item.nome}<br>VALOR:${item.valor}</li>`;
+                        html += `<li style='margin-left:40%;'>PRODUTO:${item.nome}<br>VALOR:${item.valor}</li>`;
                     });
                     html += '</ul>';
                     document.getElementById('dados').innerHTML = html;
