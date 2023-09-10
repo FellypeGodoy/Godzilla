@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # Função para conectar ao banco de dados SQLite
 def connect_db():
-    return sqlite3.connect('exemplo.db')
+    return sqlite3.connect('banco.db')
 
 # Rota para a página HTML
 @app.route('/')
@@ -21,7 +21,7 @@ def buscar_dados():
         cursor = conn.cursor()
 
         # Executar consulta SQL
-        cursor.execute("SELECT * FROM sua_tabela")
+        cursor.execute("SELECT * FROM produtos")
         rows = cursor.fetchall()
 
         # Fechar conexão com o banco de dados
@@ -31,8 +31,8 @@ def buscar_dados():
         data = []
         for row in rows:
             data.append({
-                'campo1': row[0],
-                'campo2': row[1],
+                'nome': row[0],
+                'valor': row[1],
                 # Adicione mais campos conforme necessário
             })
 
@@ -53,7 +53,7 @@ def adicionar_dados():
         cursor = conn.cursor()
 
         # Inserir dados na tabela
-        cursor.execute("INSERT INTO sua_tabela (campo1, campo2) VALUES (?, ?)", (data['campo1'], data['campo2']))
+        cursor.execute("INSERT INTO produtos (nome, valor) VALUES (?, ?)", (data['nome'], data['valor']))
 
         # Salvar as alterações e fechar a conexão com o banco de dados
         conn.commit()
