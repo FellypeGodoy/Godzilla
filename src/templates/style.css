@@ -1,0 +1,46 @@
+h1{
+    font-size: 75px;
+    text-align: center;
+}
+
+h2{
+    font-size: 50px;
+    text-align: center;
+}
+
+form{
+    text-align: center;
+}
+
+#cod_prod{
+    margin-bottom: 30px;
+}
+
+#nome_prod{
+    margin-bottom: 30px;
+}
+
+#quant_prod{
+    margin-top: 30px;
+}
+
+button{
+    margin: 40px;    
+}
+
+a{
+    padding: 15px;
+    margin: 20px;
+    background-color:#232323;
+    color: #fff;
+    text-decoration:none;
+}
+
+nav{
+    text-align: center;
+    display:block
+}
+
+footer{
+    margin-top: 15rem;
+}
