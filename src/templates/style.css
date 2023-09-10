@@ -1,11 +1,14 @@
 h1{
     font-size: 75px;
     text-align: center;
+<<<<<<< dev-back
     background-color: blue;
 }
 
 body{
     background-color:black
+=======
+>>>>>>> main
 }
 
 h2{
@@ -17,12 +20,46 @@ form{
     text-align: center;
 }
 
+<<<<<<< dev-back
 
 #nome{
     margin-bottom: 30px;
 }
 
+=======
+#cod_prod{
+    margin-bottom: 30px;
+}
+
+#nome_prod{
+    margin-bottom: 30px;
+}
+
+#quant_prod{
+    margin-top: 30px;
+}
+
+>>>>>>> main
 button{
     margin: 40px;    
 }
 
+<<<<<<< dev-back
+=======
+a{
+    padding: 15px;
+    margin: 20px;
+    background-color:#232323;
+    color: #fff;
+    text-decoration:none;
+}
+
+nav{
+    text-align: center;
+    display:block
+}
+
+footer{
+    margin-top: 15rem;
+}
+>>>>>>> main

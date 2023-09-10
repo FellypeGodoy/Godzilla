@@ -3,62 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< dev-back
     <title>Exemplo de Banco de Dados</title>
-    <style>
-        h1{
-    font-size: 75px;
-    text-align: center;
-
-}
-
-body{
-    background-color:cadetblue;
-}
-h2{
-    font-size: 50px;
-    text-align: center;
-}
-
-form{
-    text-align: center;
-}
-
-
-#nome{
-    margin-bottom: 30px;
-}
-
-button{
-    text-align: center;
-    display: block;
-    margin-left: 47%;   
-     
-}
-
-
-    </style>
-=======
-    <link rel="stylesheet" href="style.css">
-    <title>Cadastro</title>
->>>>>>> main
 </head>
 <body>
-    <h1>Cadastro de Produto do Estoque</h1>
+    <h1>Dados da Tabela SQL</h1>
+    <button id="buscar_dados">Buscar Dados</button>
+    <div id="dados"></div>
 
-    <form action="cadastro">
-
-        <label for="nome" id="nome">Nome do Produto</label><br>
-        <input type="text" name="nome_prod" id="nome"><br>
-        
-        <label for="valor" id="valor">Quantidade</label><br>
-        <input type="number" name="valor" ><br>
-        
-        <button type="submit">Registrar Produto</button>
-            <br>
-        <button id="buscar_dados">Buscar Registros</button>
-
-        <footer><a href="menu.html" id="voltar">Voltar</a></footer>
+    <h2>Adicionar Dados</h2>
+    <form id="formulario">
+        <input type="text" id="nome" placeholder="Campo 1">
+        <input type="number" id="valor" placeholder="Campo 2">
+        <button type="submit">Adicionar</button>
     </form>
 
     <script>
@@ -68,7 +24,7 @@ button{
                 .then(data => {
                     let html = '<ul>';
                     data.forEach(item => {
-                        html += `<li style='margin-left:40%;'>PRODUTO:${item.nome}<br>VALOR:${item.valor}</li>`;
+                        html += `<li>PRODUTO:${item.nome}<br>VALOR:${item.valor}</li>`;
                     });
                     html += '</ul>';
                     document.getElementById('dados').innerHTML = html;
@@ -93,6 +49,7 @@ button{
                 alert(data.message);
             });
 
+            // Limpar campos do formulário após a submissão
             document.getElementById('nome').value = '';
             document.getElementById('valor').value = '';
         });
