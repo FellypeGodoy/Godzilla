@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Exemplo de Banco de Dados</title>
+   
+</head>
+<body>
+    <h1>Dados da Tabela SQL</h1>
+    <button class="button" id="buscar_dados">Buscar Dados</button>
+    <div id="dados"></div>
+
+    <h1>Adicionar Dados</h1>
+    <form id="formulario">
+        <input type="text" id="nome" placeholder="Campo 1">
+        <input type="number" id="valor" placeholder="Campo 2">
+        <button class="button" s type="submit">Adicionar</button>
+    </form>
+
+    <br>
+    <h1>Remover Dados</h1>
+    <input type="text" id="produto-nome" placeholder="Nome do Produto">
+    <button id="remover-button">Remover Dados</button>
+
+    <script>
+        document.getElementById('buscar_dados').addEventListener('click', function() {
+            fetch('/buscar_dados')
+                .then(response => response.json())
+                .then(data => {
+                    let html = '<ul>';
+                    data.forEach(item => {
+                        html += `<li style='margin-left:40%;'>PRODUTO:${item.nome}<br>VALOR:${item.valor}</li>`;
+                    });
+                    html += '</ul>';
+                    document.getElementById('dados').innerHTML = html;
+                });
+        });
+
+        document.getElementById('formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const valor = document.getElementById('valor').value;
+
+            fetch('/adicionar_dados', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome, valor })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            });
+
+            document.getElementById('nome').value = '';
+            document.getElementById('valor').value = '';
+        });
+
+        document.getElementById('remover-button').addEventListener('click', function() {
+            const nomeProduto = document.getElementById('produto-nome').value;
+
+            if (!nomeProduto) {
+                alert('Por favor, insira o nome do produto.');
+                return;
+            }
+
+            // Realiza uma solicitação DELETE quando o botão é clicado
+            fetch('/remover_dados', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome_produto: nomeProduto })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Dados removidos com sucesso!');
+                } else {
+                    alert('Erro ao remover dados!');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>

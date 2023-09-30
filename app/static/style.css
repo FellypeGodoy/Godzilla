@@ -1,0 +1,40 @@
+h1{
+    font-size: 75px;
+    text-align: center;
+
+}
+
+body{
+    background-color:cadetblue;
+}
+h2{
+    font-size: 50px;
+    text-align: center;
+}
+
+form{
+    text-align: center;
+}
+
+
+#nome{
+    margin-bottom: 30px;
+}
+
+.button{
+    text-align: center;
+    display: block;
+    margin-left: 47%;   
+     
+}
+
+#produto-nome{
+    text-align: center;
+    margin-left: 38%;
+    display: inline;   
+
+}
+
+#remover-button{
+    display: inline;
+}
