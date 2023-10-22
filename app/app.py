@@ -82,6 +82,28 @@ def remover_dados():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/editar_dados', methods=['PATCH'])
+def editar_dados():
+    try:
+        data = request.get_json()
+        nome = data.get('nome')
+        novo_valor = data.get('novoValor')
+
+        if not nome or novo_valor is None:
+            return jsonify({"message": "Campos inválidos"}), 400
+
+        conn = connect_db()
+        cursor = conn.cursor()
+
+        cursor.execute("UPDATE produtos SET valor = ? WHERE nome = ?", (novo_valor, nome))
+        conn.commit()
+        conn.close()
+
+        return jsonify({"message": "Dados editados com sucesso"})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
