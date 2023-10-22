@@ -31,6 +31,7 @@ def buscar_dados():
             data.append({
                 'nome': row[0],
                 'valor': row[1],
+                'quantidade': row[2],
                 # Adicionar mais campos 
             })
 
@@ -48,7 +49,7 @@ def adicionar_dados():
         conn = connect_db()
         cursor = conn.cursor()
 
-        cursor.execute("INSERT INTO produtos (nome, valor) VALUES (?, ?)", (data['nome'], data['valor']))
+        cursor.execute("INSERT INTO produtos (nome, valor, quantidade) VALUES (?, ?, ?)", (data['nome'], data['valor'], data['quantidade']))
 
         conn.commit()
         conn.close()
@@ -82,7 +83,8 @@ def remover_dados():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/editar_dados', methods=['PATCH'])
+
+@app.route('/editar_valor', methods=['PATCH'])
 def editar_dados():
     try:
         data = request.get_json()
@@ -96,6 +98,29 @@ def editar_dados():
         cursor = conn.cursor()
 
         cursor.execute("UPDATE produtos SET valor = ? WHERE nome = ?", (novo_valor, nome))
+        conn.commit()
+        conn.close()
+
+        return jsonify({"message": "Dados editados com sucesso"})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/editar_quantidade', methods=['PUT'])
+def editar_quantidade():
+    try:
+        data = request.get_json()
+        nome = data.get('nome')
+        quantidade = data.get('quantidade')
+
+        if not nome or quantidade is None:
+            return jsonify({"message": "Campos inválidos"}), 400
+
+        conn = connect_db()
+        cursor = conn.cursor()
+
+        cursor.execute("UPDATE produtos SET quantidade = ? WHERE nome = ?", (quantidade, nome))
         conn.commit()
         conn.close()
 

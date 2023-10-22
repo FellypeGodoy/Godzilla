@@ -5,7 +5,8 @@ cursor = conn.cursor()
 cursor.execute('''
     CREATE TABLE produtos (
         nome TEXT,
-        valor INTEGER
+        valor INTEGER,
+        quantidade INTEGER
     )
 ''')
 
