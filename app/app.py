@@ -1,16 +1,24 @@
 from flask import Flask, render_template, request, jsonify
-import sqlite3
+import psycopg2
+
 
 app = Flask(__name__)
 
 
 def connect_db():
-    return sqlite3.connect('banco.db')
+    conn = psycopg2.connect(
+        host='localhost',
+        database='aurelionsol',
+        user='olkaida',
+        password='estrelas123'
+    )
+    return conn
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/buscar_dados', methods=['GET'])
 def buscar_dados():
@@ -49,7 +57,8 @@ def adicionar_dados():
         conn = connect_db()
         cursor = conn.cursor()
 
-        cursor.execute("INSERT INTO produtos (nome, valor, quantidade) VALUES (?, ?, ?)", (data['nome'], data['valor'], data['quantidade']))
+        cursor.execute("INSERT INTO produtos (nome, valor, quantidade) VALUES (%s, %s, %s)",
+                       (data['nome'], data['valor'], data['quantidade']))
 
         conn.commit()
         conn.close()
@@ -60,31 +69,7 @@ def adicionar_dados():
         return jsonify({'error': str(e)})
 
 
-@app.route('/remover_dados', methods=['DELETE'])
-def remover_dados():
-    try:
-        data = request.get_json()
-        nome_produto = data.get('nome_produto')
-
-        if not nome_produto:
-            return jsonify({"message": "Missing 'nome_produto' in request JSON"}), 400
-
-        conn = connect_db()
-        cursor = conn.cursor()
-
-
-        cursor.execute("DELETE FROM produtos WHERE nome = ?", (nome_produto,))
-        conn.commit()
-
-        conn.close()
-
-        return jsonify({"message": "Dados removidos com sucesso"})
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@app.route('/editar_valor', methods=['PATCH'])
+@app.route('/editar_valor', methods=['PUT'])
 def editar_dados():
     try:
         data = request.get_json()
@@ -97,7 +82,7 @@ def editar_dados():
         conn = connect_db()
         cursor = conn.cursor()
 
-        cursor.execute("UPDATE produtos SET valor = ? WHERE nome = ?", (novo_valor, nome))
+        cursor.execute("UPDATE produtos SET valor = %s WHERE nome = %s", (novo_valor, nome))
         conn.commit()
         conn.close()
 
@@ -120,7 +105,7 @@ def editar_quantidade():
         conn = connect_db()
         cursor = conn.cursor()
 
-        cursor.execute("UPDATE produtos SET quantidade = ? WHERE nome = ?", (quantidade, nome))
+        cursor.execute("UPDATE produtos SET quantidade = %s WHERE nome = %s", (quantidade, nome))
         conn.commit()
         conn.close()
 
@@ -129,6 +114,28 @@ def editar_quantidade():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+@app.route('/remover_dados', methods=['DELETE'])
+def remover_dados():
+    try:
+        data = request.get_json()
+        nome_produto = data.get('nome_produto')
+
+        if not nome_produto:
+            return jsonify({"message": "Falta 'nome_produto' no JSON da solicitação"}), 400
+
+        conn = connect_db()
+        cursor = conn.cursor()
+
+        cursor.execute("DELETE FROM produtos WHERE nome = %s", (nome_produto,))
+        conn.commit()
+
+        conn.close()
+
+        return jsonify({"message": "Dados removidos com sucesso"})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
