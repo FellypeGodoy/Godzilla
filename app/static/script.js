@@ -1,4 +1,127 @@
-document.getElementById('buscar_dados').addEventListener('click', function() {
+document.getElementById("addProd").addEventListener("click", function() {
+
+    var campo1 = document.createElement("input");
+    campo1.setAttribute("type", "text");
+    campo1.setAttribute("placeholder", "Nome do Produto");
+    campo1.className="camp1"
+    campo1.id="nome"
+
+    var campo2 = document.createElement("input");
+    campo2.setAttribute("type", "text");
+    campo2.setAttribute("placeholder", "Valor");
+    campo2.className="camp2"
+    campo2.id="valor"
+
+    var campo3 = document.createElement("input");
+    campo3.setAttribute("type", "text");
+    campo3.setAttribute("placeholder", "Quantidade");
+    campo3.className="camp3"
+    campo3.id="quantidade"
+    
+    var botaoEnviar = document.createElement("button");
+    botaoEnviar.textContent = "Enviar";
+    botaoEnviar.id="addProd1"
+
+    
+    var quadrado = document.getElementById("quadrado");
+    
+    quadrado.innerHTML = "";
+
+    
+    quadrado.appendChild(campo1);
+    quadrado.appendChild(campo2);
+    quadrado.appendChild(campo3);
+    quadrado.appendChild(botaoEnviar);
+});
+
+document.getElementById("rmvProd").addEventListener("click", function() {
+
+    var campo1 = document.createElement("input");
+    campo1.setAttribute("type", "text");
+    campo1.setAttribute("placeholder", "Nome do Produto");
+    campo1.className="camp1"
+    campo1.id="produto-nome"
+
+    var botaoEnviar = document.createElement("button");
+    botaoEnviar.textContent = "Enviar";
+    botaoEnviar.id="rmvProd1"
+
+
+    var quadrado = document.getElementById("quadrado");
+
+
+    quadrado.innerHTML = "";
+
+
+    quadrado.appendChild(campo1);
+    quadrado.appendChild(botaoEnviar);
+
+});
+
+document.getElementById("editVal").addEventListener("click", function() {
+
+    var campo1 = document.createElement("input");
+    campo1.setAttribute("type", "text");
+    campo1.setAttribute("placeholder", "Nome do Produto");
+    campo1.className="camp1"
+    campo1.id="editar-nome"
+
+    var campo2 = document.createElement("input");
+    campo2.setAttribute("type", "text");
+    campo2.setAttribute("placeholder", "Valor");
+    campo2.className="camp2"
+    campo2.id="editar-valor"
+
+    var botaoEnviar = document.createElement("button");
+    botaoEnviar.textContent = "Enviar";
+    botaoEnviar.id="editVal1"
+
+
+    var quadrado = document.getElementById("quadrado");
+
+
+    quadrado.innerHTML = "";
+
+
+    quadrado.appendChild(campo1);
+    quadrado.appendChild(campo2);
+    quadrado.appendChild(botaoEnviar);
+});
+
+document.getElementById("editQtd").addEventListener("click", function() {
+
+    var campo1 = document.createElement("input");
+    campo1.setAttribute("type", "text");
+    campo1.setAttribute("placeholder", "Nome do Produto");
+    campo1.className="camp1"
+    campo1.id="adicionar-nome"
+
+    var campo2 = document.createElement("input");
+    campo2.setAttribute("type", "text");
+    campo2.setAttribute("placeholder", "Quantidade");
+    campo2.className="camp2"
+    campo2.id="adicionar-quantidade"
+
+    var botaoEnviar = document.createElement("button");
+    botaoEnviar.textContent = "Enviar";
+    botaoEnviar.id="editQtd1"
+    
+
+
+    var quadrado = document.getElementById("quadrado");
+
+    quadrado.innerHTML = "";
+
+    
+    quadrado.appendChild(campo1);
+    quadrado.appendChild(campo2);
+    quadrado.appendChild(botaoEnviar);
+    
+});
+
+// Script Banco
+
+document.getElementById('busProd').addEventListener('click', function() {
     fetch('/buscar_dados')
         .then(response => response.json())
         .then(data => {
@@ -18,7 +141,7 @@ document.getElementById('buscar_dados').addEventListener('click', function() {
 });
 
 
-document.getElementById('formulario').addEventListener('submit', function(event) {
+document.getElementById('addProd1').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const nome = document.getElementById('nome').value;
@@ -42,7 +165,7 @@ document.getElementById('formulario').addEventListener('submit', function(event)
     document.getElementById('quantidade').value = '';
 });
 
-document.getElementById('remover-button').addEventListener('click', function() {
+document.getElementById('rmvProd1').addEventListener('click', function() {
     const nomeProduto = document.getElementById('produto-nome').value;
 
     if (!nomeProduto) {
@@ -71,7 +194,7 @@ document.getElementById('remover-button').addEventListener('click', function() {
     });
 });
 
-document.getElementById('editar-button').addEventListener('click', function(event) {
+document.getElementById('editVal1').addEventListener('click', function(event) {
 event.preventDefault();
 
 const nome = document.getElementById('editar-nome').value;
@@ -104,7 +227,7 @@ fetch('/editar_valor', {
 });
 
 
-document.getElementById('adicionar-button').addEventListener('click', function(event) {
+document.getElementById('editQtd1').addEventListener('click', function(event) {
     event.preventDefault();
 
     const nome = document.getElementById('adicionar-nome').value;

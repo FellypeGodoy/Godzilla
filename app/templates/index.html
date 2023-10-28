@@ -7,36 +7,25 @@
     <title>Exemplo de Banco de Dados</title>
 </head>
 <body>
-    <h1>Dados da Tabela SQL</h1>
-    <button class="button" id="buscar_dados">Buscar Dados</button>
-    <div id="dados"></div>
+    
+    <h1>Sistema de Estoque</h1>
 
-    <h1>Adicionar Dados</h1>
-    <form id="formulario">
-        <input type="text" id="nome" placeholder="Nome">
-        <input type="number" id="valor" placeholder="Valor">
-        <input type="number" id="quantidade" placeholder="Quantidade">
-        <button class="button" type="submit">Adicionar</button>
-    </form>
+    <nav>
+        <button id="addProd" class="nav">Adicionar Produto</button>
+        <button id="rmvProd" class="nav">Remover Produto</button>
+        <button id="editVal" class="nav">Editar Valor</button>
+        <button id="editQtd" class="nav">Editar Quantidade</button>
+    </nav>
 
-    <h1>Editar Valor</h1>
-    <form id="editar-formulario">
-        <input type="text" id="editar-nome" placeholder="Nome do Produto">
-        <input type="number" id="editar-valor" placeholder="Novo Valor">
-        <button class="button" id="editar-button">Editar Dados</button>
-    </form>
+    <div id="quadrado"></div>
 
-    <h1>Editar Quantidade</h1>
-    <form id="adicionar-formulario">
-        <input type="text" id="adicionar-nome" placeholder="Nome do Produto">
-        <input type="number" id="adicionar-quantidade" placeholder="Nova Quantidade">
-        <button class="button" id="adicionar-button">Editar Dados</button>
-    </form>
+    <button id="busProd">Buscar Produto </button>
 
-    <div class="centered-buttons">
-        <h1>Remover Dados</h1>
-        <input type="text" id="produto-nome" placeholder="Nome do Produto">
-        <button id="remover-button">Remover Dados</button>
+
+    <div class="container">
+        <img src="../static/imagens/imagem1.png" alt="Imagem 1" class="image1">
+        <img src="../static/imagens/imagem2.png" alt="Imagem 2" class="image2">
+        <img src="../static/imagens/imagem3.png" alt="Imagem 3" class="image3">
     </div>
 
     <script src="../static/script.js"></script>
