@@ -136,125 +136,141 @@ document.getElementById('busProd').addEventListener('click', function() {
                 `;
             });
             html += '</table>';
-            document.getElementById('dados').innerHTML = html;
+            
+            document.getElementById('quadrado').innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Erro:', error);
         });
 });
 
 
-document.getElementById('addProd1').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-    const nome = document.getElementById('nome').value;
-    const valor = document.getElementById('valor').value;
-    const quantidade = document.getElementById('quantidade').value
+document.getElementById("quadrado").addEventListener("click", function(event) {
+  
+    if (event.target.id === "addProd1") {
+        event.preventDefault();
 
-    fetch('/adicionar_dados', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nome, valor, quantidade })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-    });
+        const nome = document.getElementById('nome').value;
+        const valor = document.getElementById('valor').value;
+        const quantidade = document.getElementById('quantidade').value
 
-    document.getElementById('nome').value = '';
-    document.getElementById('valor').value = '';
-    document.getElementById('quantidade').value = '';
+        fetch('/adicionar_dados', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome, valor, quantidade })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+        });
+
+        document.getElementById('nome').value = '';
+        document.getElementById('valor').value = '';
+        document.getElementById('quantidade').value = '';
+    }
 });
 
-document.getElementById('rmvProd1').addEventListener('click', function() {
-    const nomeProduto = document.getElementById('produto-nome').value;
 
-    if (!nomeProduto) {
-        alert('Por favor, insira o nome do produto.');
-        return;
-    }
+document.getElementById("quadrado").addEventListener("click", function(event) {
+   
+    if (event.target.id === "rmvProd1") {
+        const nomeProduto = document.getElementById('produto-nome').value;
 
-    // Realiza uma solicitação DELETE quando o botão é clicado
-    fetch('/remover_dados', {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nome_produto: nomeProduto })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Dados removidos com sucesso!');
-        } else {
-            alert('Erro ao remover dados!');
+        if (!nomeProduto) {
+            alert('Por favor, insira o nome do produto.');
+            return;
         }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        
-    });
-});
 
-document.getElementById('editVal1').addEventListener('click', function(event) {
-event.preventDefault();
-
-const nome = document.getElementById('editar-nome').value;
-const novoValor = document.getElementById('editar-valor').value;
-
-if (!nome || !novoValor) {
-    alert('Por favor, preencha ambos os campos.');
-    return;
-}
-
-fetch('/editar_valor', {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ nome, novoValor })
-})
-.then(response => {
-    if (response.ok) {
-        alert('Dados editados com sucesso!');
-        document.getElementById('editar-nome').value = '';
-        document.getElementById('editar-valor').value = '';
-    } else {
-        alert('Erro ao editar dados!');
+       
+        fetch('/remover_dados', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome_produto: nomeProduto })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Dados removidos com sucesso!');
+            } else {
+                alert('Erro ao remover dados!');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
     }
-})
-.catch(error => {
-    console.error('Erro:', error);
-});
 });
 
+document.getElementById("quadrado").addEventListener("click", function(event) {
+   
+    if (event.target.id === "editVal1") {
+        event.preventDefault();
 
-document.getElementById('editQtd1').addEventListener('click', function(event) {
-    event.preventDefault();
+        const nome = document.getElementById('editar-nome').value;
+        const novoValor = document.getElementById('editar-valor').value;
 
-    const nome = document.getElementById('adicionar-nome').value;
-    const quantidade = document.getElementById('adicionar-quantidade').value;
-
-    if (!nome || !quantidade) {
-        alert('Por favor, preencha ambos os campos.');
-        return;
-    }
-
-    fetch('/editar_quantidade', {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nome, quantidade })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Dados editados com sucesso!');
-            document.getElementById('adicionar-nome').value = '';
-            document.getElementById('adicionar-quantidade').value = '';
-        } else {
-            alert('Erro ao editar dados!');
+        if (!nome || !novoValor) {
+            alert('Por favor, preencha ambos os campos.');
+            return;
         }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-    });
+
+        fetch('/editar_valor', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome, novoValor })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Dados editados com sucesso!');
+                document.getElementById('editar-nome').value = '';
+                document.getElementById('editar-valor').value = '';
+            } else {
+                alert('Erro ao editar dados!');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    }
+});
+
+document.getElementById("quadrado").addEventListener("click", function(event) {
+    
+    if (event.target.id === "editQtd1") {
+        event.preventDefault();
+
+        const nome = document.getElementById('adicionar-nome').value;
+        const quantidade = document.getElementById('adicionar-quantidade').value;
+
+        if (!nome || !quantidade) {
+            alert('Por favor, preencha ambos os campos.');
+            return;
+        }
+
+        fetch('/editar_quantidade', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome, quantidade })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Dados editados com sucesso!');
+                document.getElementById('adicionar-nome').value = '';
+                document.getElementById('adicionar-quantidade').value = '';
+            } else {
+                alert('Erro ao editar dados!');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    }
 });
